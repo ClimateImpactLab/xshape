@@ -33,7 +33,7 @@ test_requirements = [
 
 setup(
     name='xshape',
-    version='0.1.0',
+    version='0.2.0',
     description="Tools for working with shapefiles, topographies, and polygons in xarray",
     long_description=readme + '\n\n' + history,
     author="Michael Delgado",
