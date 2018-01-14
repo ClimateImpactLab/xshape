@@ -1,0 +1,8 @@
+# add pip requirements that should be intalled to use this package here.
+# requirements should be in the format
+#
+#     package==version
+#
+# for example:
+#
+#     click==6.7
