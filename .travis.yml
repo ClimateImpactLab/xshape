@@ -41,13 +41,9 @@ install:
   python setup.py install; python -m pip install -r requirements_dev.txt; conda install
   --yes --file requirements_conda.txt; else pip install -U tox-travis; fi'
 language: python
-matrix:
-  allow_failures:
-  - env: TEST_ENV=conda
-    python: 3.4
 python:
 - 3.5
-- 3.4
+- 3.6
 - 2.7
 script:
 - if [[ "$TEST_ENV" == "conda" ]]; then export PATH=$HOME/miniconda/bin:$PATH; source
