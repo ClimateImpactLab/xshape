@@ -9,20 +9,23 @@ from click.testing import CliRunner
 from xshape import xshape
 from xshape import cli
 
+import xarray as xr
+import pandas as pd
+
+
 @pytest.fixture
-def response():
-    """Sample pytest fixture.
+def california_pop_by_county():
+    df = pd.read_csv('tests/data/datasets/co-est2016.csv', encoding='latin1')
+    ca = df[(df['STATE'] == 6) & (df['COUNTY'] > 0)].copy()
+    ca['fips'] = df['STATE'] * 1000 + df['COUNTY']
+    da = ca.set_index(['fips'])['POPESTIMATE2016'].to_xarray()
+    da.coords['GEOID'] = ('fips', ), list(map('{:05}'.format, da.fips.values))
+    return da
 
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_plot(california_pop_by_county):
+    ax = california_pop_by_county.swap_dims({'fips': 'GEOID'}).xshape.plot(
+        'tests/data/shapefiles/CA_counties/CA_counties', encoding='latin1')
 
 
 def test_command_line_interface():

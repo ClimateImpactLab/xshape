@@ -1,9 +1,9 @@
 
 import xarray as xr
-from xshape import choropleth, shapefile_overlay
+from xshape.xshape import choropleth, shapefile_overlay
 
 @xr.register_dataarray_accessor('xshape')
-class XShapeAccessor(object):
+class XShapeDataArrayAccessor(object):
     '''
     
     '''
@@ -38,3 +38,7 @@ class XShapeAccessor(object):
         **kwargs):
         
         return shapefile_overlay(self._obj, shapefile=shapefile, ax=ax, **kwargs)
+
+@xr.register_dataset_accessor('xshape')
+class XShapeDatasetAccessor(object):
+    pass
