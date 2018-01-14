@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+
 """Tests for `xshape` package."""
+
 
 import pytest
 from click.testing import CliRunner

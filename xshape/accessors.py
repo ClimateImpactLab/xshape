@@ -1,4 +1,6 @@
 
+from __future__ import absolute_import
+
 import xarray as xr
 from xshape.xshape import choropleth, shapefile_overlay
 

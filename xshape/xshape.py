@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+
 """Main module."""
 
 try:
@@ -8,6 +10,9 @@ try:
 except NameError:
     u = str
     string_types = (str, )
+
+import matplotlib
+matplotlib.use('Agg')
 
 import numpy as np
 

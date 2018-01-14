@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+
 """Top-level package for xshape."""
 
 __author__ = """Michael Delgado"""
