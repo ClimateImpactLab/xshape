@@ -39,8 +39,9 @@ def parse_shapefile(shapefile, encoding='utf-8', **kwargs):
     encoding : str, optional
         encoding of shapefile, default 'utf-8'
 
-    keyword arguments passed to :py:class:`matplotlib.patches.Polygon`
-    constructor.
+    **kwargs
+        keyword arguments passed to :py:class:`matplotlib.patches.Polygon`
+        constructor.
 
     Returns
     -------
@@ -49,6 +50,7 @@ def parse_shapefile(shapefile, encoding='utf-8', **kwargs):
         :py:class:`xarray.DataArray`, includes all of the records associated
         with shapes in the shapefile. The second, an :py:class:`~numpy.array`
         of :py:class:`matplotlib.patches.Polygon` objects, contains the shapes.
+
     '''
 
     shp = pyshp.Reader(shapefile)

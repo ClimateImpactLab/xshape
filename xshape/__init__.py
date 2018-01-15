@@ -15,7 +15,10 @@ from xshape.accessors import (
 from xshape.xshape import (
     parse_shapefile)
 
-__all__ = [
+_module_imports = (
     XShapeDataArrayAccessor,
     XShapeDatasetAccessor,
-    parse_shapefile]
+    parse_shapefile
+)
+
+__all__ = list(map(lambda x: x.__name__, _module_imports))

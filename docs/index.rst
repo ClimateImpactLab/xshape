@@ -4,7 +4,8 @@ Welcome to xshape's documentation!
 .. include:: ../README.rst
 
 
-Contents:
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
@@ -17,7 +18,7 @@ Contents:
    history
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
