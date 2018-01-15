@@ -9,11 +9,11 @@ from __future__ import absolute_import
 import pytest
 from click.testing import CliRunner
 
-from xshape import xshape
+import xshape
 from xshape import cli
 
-import xarray as xr
 import pandas as pd
+import numpy as np
 
 
 @pytest.fixture
@@ -26,8 +26,17 @@ def california_pop_by_county():
     return da
 
 
+def test_get_fields_from_map(california_pop_by_county):
+    fields, poly = xshape.parse_shapefile(
+        'tests/data/shapefiles/CA_counties/CA_counties', encoding='latin1')
+
+    np.testing.assert_array_equal(
+        np.sort(fields.GEOID.values),
+        np.sort(california_pop_by_county.GEOID.values))
+
+
 def test_plot(california_pop_by_county):
-    ax = california_pop_by_county.swap_dims({'fips': 'GEOID'}).xshape.plot(
+    california_pop_by_county.swap_dims({'fips': 'GEOID'}).xshape.plot(
         'tests/data/shapefiles/CA_counties/CA_counties', encoding='latin1')
 
 

@@ -2,15 +2,6 @@
 
 from __future__ import absolute_import
 
-"""Main module."""
-
-try:
-    u = unicode
-    string_types = (str, unicode)
-except NameError:
-    u = str
-    string_types = (str, )
-
 import matplotlib
 matplotlib.use('Agg')
 
@@ -24,11 +15,41 @@ import shapefile as pyshp
 
 import xarray as xr
 
+try:
+    u = unicode
+    string_types = (str, unicode)
+except NameError:
+    u = str
+    string_types = (str, )
+
+
 # TODO:
 #   figure out how to use toolz.memoize to pre-process
 #   polygon creation. currently fails for shapefile_overlay
 #   because artists cannot be re-used
-def prep_polygons(shapefile, encoding='utf-8', **kwargs):
+def parse_shapefile(shapefile, encoding='utf-8', **kwargs):
+    '''
+    read shapefile and return arrays of fields and polygons
+
+    Parameters
+    ----------
+    shapefile : str
+        Path to shapefile
+
+    encoding : str, optional
+        encoding of shapefile, default 'utf-8'
+
+    keyword arguments passed to :py:class:`matplotlib.patches.Polygon`
+    constructor.
+
+    Returns
+    -------
+    (fields, polygons) : (DataArray, array)
+        returns a tuple of two objects. The first, a
+        :py:class:`xarray.DataArray`, includes all of the records associated
+        with shapes in the shapefile. The second, an :py:class:`~numpy.array`
+        of :py:class:`matplotlib.patches.Polygon` objects, contains the shapes.
+    '''
 
     shp = pyshp.Reader(shapefile)
 
@@ -50,8 +71,7 @@ def prep_polygons(shapefile, encoding='utf-8', **kwargs):
                 else:
                     record_values.append(e)
             all_records.append(record_values)
-                
-                
+
         records = np.array(all_records)
 
     fields = (
@@ -84,34 +104,34 @@ def choropleth(
                 'DataArray with more than one dimension')
 
         dim = da.dims[0]
-        
+
     if region_name is None:
         region_name = dim
-    
+
     if ax is None:
         ax = plt.subplot(111)
-        
+
     if clim is None:
         clim = [da.min(), da.max()]
-        
-    fields, poly = prep_polygons(shapefile, encoding=encoding, closed=True)
+
+    fields, poly = parse_shapefile(shapefile, encoding=encoding, closed=True)
 
     regions = fields[region_name].values
-    
+
     geo_mask = np.in1d(regions, da[dim].values)
-    
+
     poly = poly[geo_mask]
     regions = regions[geo_mask]
-    
+
     color = da.sel(**{dim: regions}).values
-    
+
     c = PatchCollection(poly, array=color, cmap=cmap, **kwargs)
-    
+
     bbox = c.get_window_extent(ax).get_points()
-    
+
     ax.set_xlim(bbox[0][0], bbox[1][0])
     ax.set_ylim(bbox[0][1], bbox[1][1])
-    
+
     c.set_clim(clim)     # set the range of colorbar here
     ax.add_collection(c)
     plt.colorbar(c, ax=ax)
@@ -120,15 +140,16 @@ def choropleth(
 
 
 def shapefile_overlay(da, shapefile, ax=None, **kwargs):
-    
+
     if ax is None:
-        fig, ax = plt.subplots(1,1)
+        fig, ax = plt.subplots(1, 1)
 
     da.plot(ax=ax, **kwargs)
 
-    fields, poly = prep_polygons(shapefile, closed=False, fill=False, facecolor=None, edgecolor='black')
+    fields, poly = parse_shapefile(
+        shapefile, closed=False, fill=False, facecolor=None, edgecolor='black')
 
     for p in list(poly):
         ax.add_patch(p)
-    
+
     return ax

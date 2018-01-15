@@ -4,12 +4,13 @@ from __future__ import absolute_import
 import xarray as xr
 from xshape.xshape import choropleth, shapefile_overlay
 
+
 @xr.register_dataarray_accessor('xshape')
 class XShapeDataArrayAccessor(object):
     '''
-    
+
     '''
-    
+
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
 
@@ -34,12 +35,14 @@ class XShapeDataArrayAccessor(object):
             **kwargs)
 
     def overlay(
-        self,
-        shapefile,
-        ax=None,
-        **kwargs):
-        
-        return shapefile_overlay(self._obj, shapefile=shapefile, ax=ax, **kwargs)
+            self,
+            shapefile,
+            ax=None,
+            **kwargs):
+
+        return shapefile_overlay(
+            self._obj, shapefile=shapefile, ax=ax, **kwargs)
+
 
 @xr.register_dataset_accessor('xshape')
 class XShapeDatasetAccessor(object):
