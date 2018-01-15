@@ -38,9 +38,11 @@ install:
 
 script:
 - if [[ "$TEST_ENV" == "conda" ]]; then
-    export PATH=$HOME/miniconda/bin:$PATH;
-    source activate test_env;
-    python -m pytest &&
+    echo `which python`;
+    # export PATH=$HOME/miniconda/bin:$PATH;
+    # source activate test_env;
+    pytest &&
+    # python -m pytest &&
     sphinx-apidoc -o docs xshape &&
     sphinx-build -W -b html -d docs/_build/doctrees docs/. docs/_build/html;
   else
