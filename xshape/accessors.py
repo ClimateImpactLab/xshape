@@ -38,10 +38,11 @@ class XShapeDataArrayAccessor(object):
             self,
             shapefile,
             ax=None,
+            encoding='utf-8',
             **kwargs):
 
         return shapefile_overlay(
-            self._obj, shapefile=shapefile, ax=ax, **kwargs)
+            self._obj, shapefile=shapefile, ax=ax, encoding=encoding, **kwargs)
 
 
 @xr.register_dataset_accessor('xshape')
