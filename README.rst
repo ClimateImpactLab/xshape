@@ -38,7 +38,7 @@ Usage
 Getting records for fields in a shapefile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. ipython::
+.. code-block:: python
 
     In [1]: import xshape
 
@@ -52,7 +52,7 @@ Getting records for fields in a shapefile
 Drawing shape boundaries on gridded data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. ipython::
+.. code-block:: python
 
     In [4]: import xarray as xr, numpy as np, xshape
 
@@ -67,12 +67,13 @@ Drawing shape boundaries on gridded data
        ...:        'lat': np.linspace(32, 42, 41)})
        ...:
 
-    @savefig california_map.png width=4in
     In [6]: da.xshape.overlay(
        ...:     'tests/data/shapefiles/CA_counties/CA_counties',
        ...:     encoding='latin1',
        ...:     cmap='YlGnBu');
        ...:
+
+.. figure:: docs/images/california_map.png
 
 
 Plotting regional data in a choropleth
@@ -80,7 +81,7 @@ Plotting regional data in a choropleth
 
 Using the xarray extension, we can plot ``DataArray`` data directly:
 
-.. ipython::
+.. code-block:: python
 
     In [7]: import xshape, xarray as xr, pandas as pd
 
@@ -91,16 +92,17 @@ Using the xarray extension, we can plot ``DataArray`` data directly:
        ...: da.coords['GEOID'] = ('fips', ), list(map('{:05}'.format, da.fips.values))
        ...: da = da.swap_dims({'fips': 'GEOID'})
 
-    @savefig california_map_pop.png width=4in
     In [9]: da.xshape.plot(
        ...:     'tests/data/shapefiles/CA_counties/CA_counties',
        ...:     encoding='latin1',
        ...:     cmap='YlGnBu');
        ...:
 
+.. figure:: docs/images/california_map_pop.png
+
 We can also combine the information from the fields with the data contained in the DataArray:
 
-.. ipython::
+.. code-block:: python
 
     In [10]: land_area = (
        ....:     fields
@@ -108,13 +110,13 @@ We can also combine the information from the fields with the data contained in t
        ....:     .swap_dims({'shape': 'GEOID'})
        ....:     .ALAND.astype(float))
 
-    @savefig california_map_pop_per_m2.png width=4in
     In [11]: np.log(da / land_area).xshape.plot(
        ....:     'tests/data/shapefiles/CA_counties/CA_counties',
        ....:     encoding='latin1',
        ....:     cmap='YlGnBu');
        ....:
 
+.. figure:: docs/images/california_map_pop_per_m2.png
 
 TODO
 ----
