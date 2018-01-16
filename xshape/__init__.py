@@ -6,7 +6,7 @@ from __future__ import absolute_import
 
 __author__ = """Michael Delgado"""
 __email__ = 'delgado.michaelt@gmail.com'
-__version__ = '0.2.0'
+__version__ = '0.1.0'
 
 from xshape.accessors import (
     XShapeDataArrayAccessor,
