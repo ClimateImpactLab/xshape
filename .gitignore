@@ -63,3 +63,6 @@ target/
 
 # mac garbage
 .DS_Store
+
+# sphinx ipython-ext outputs:
+docs/savefig

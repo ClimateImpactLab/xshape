@@ -141,7 +141,7 @@ def choropleth(
     return ax
 
 
-def shapefile_overlay(da, shapefile, ax=None, **kwargs):
+def shapefile_overlay(da, shapefile, ax=None, encoding='utf-8', **kwargs):
 
     if ax is None:
         fig, ax = plt.subplots(1, 1)
@@ -149,7 +149,12 @@ def shapefile_overlay(da, shapefile, ax=None, **kwargs):
     da.plot(ax=ax, **kwargs)
 
     fields, poly = parse_shapefile(
-        shapefile, closed=False, fill=False, facecolor=None, edgecolor='black')
+        shapefile,
+        encoding=encoding,
+        closed=False,
+        fill=False,
+        facecolor=None,
+        edgecolor='black')
 
     for p in list(poly):
         ax.add_patch(p)
