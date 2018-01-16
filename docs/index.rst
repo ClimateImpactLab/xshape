@@ -1,5 +1,39 @@
-Welcome to xshape's documentation!
-====================================================================================================
+======
+xshape
+======
+
+
+.. image:: https://img.shields.io/pypi/v/xshape.svg
+        :target: https://pypi.python.org/pypi/xshape
+
+.. image:: https://img.shields.io/travis/ClimateImpactLab/xshape.svg
+        :target: https://travis-ci.org/ClimateImpactLab/xshape
+
+.. image:: https://readthedocs.org/projects/xshape/badge/?version=latest
+        :target: https://xshape.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
+.. image:: https://pyup.io/repos/github/ClimateImpactLab/xshape/shield.svg
+     :target: https://pyup.io/repos/github/ClimateImpactLab/xshape/
+     :alt: Updates
+
+
+Tools for working with shapefiles, topographies, and polygons in xarray
+
+
+* Free software: MIT license
+* Documentation: https://xshape.readthedocs.io.
+
+
+Features
+--------
+
+* Read a shapefile and obtain an xarray DataArray of field records
+* Draw shapefile boundaries on gridded data
+* Plot xarray DataArray data indexed by shapefile records as a choropleth
+
+Usage
+-----
 
 Getting records for fields in a shapefile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +43,7 @@ Getting records for fields in a shapefile
     In [1]: import xshape
 
     In [2]: fields, polygons = xshape.parse_shapefile(
-       ...:     'tests/data/shapefiles/CA_counties/CA_counties',
+       ...:     '../tests/data/shapefiles/CA_counties/CA_counties',
        ...:     encoding='latin1')
 
     In [3]: fields
@@ -35,7 +69,7 @@ Drawing shape boundaries on gridded data
 
     @savefig california_map.png width=4in
     In [6]: da.xshape.overlay(
-       ...:     'tests/data/shapefiles/CA_counties/CA_counties',
+       ...:     '../tests/data/shapefiles/CA_counties/CA_counties',
        ...:     encoding='latin1',
        ...:     cmap='YlGnBu');
        ...:
@@ -50,7 +84,7 @@ Using the xarray extension, we can plot ``DataArray`` data directly:
 
     In [7]: import xshape, xarray as xr, pandas as pd
 
-    In [8]: df = pd.read_csv('tests/data/datasets/co-est2016.csv', encoding='latin1')
+    In [8]: df = pd.read_csv('../tests/data/datasets/co-est2016.csv', encoding='latin1')
        ...: ca = df[(df['STATE'] == 6) & (df['COUNTY'] > 0)].copy()
        ...: ca['fips'] = df['STATE'] * 1000 + df['COUNTY']
        ...: da = ca.set_index(['fips'])['POPESTIMATE2016'].to_xarray()
@@ -59,7 +93,7 @@ Using the xarray extension, we can plot ``DataArray`` data directly:
 
     @savefig california_map_pop.png width=4in
     In [9]: da.xshape.plot(
-       ...:     'tests/data/shapefiles/CA_counties/CA_counties',
+       ...:     '../tests/data/shapefiles/CA_counties/CA_counties',
        ...:     encoding='latin1',
        ...:     cmap='YlGnBu');
        ...:
@@ -76,7 +110,7 @@ We can also combine the information from the fields with the data contained in t
 
     @savefig california_map_pop_per_m2.png width=4in
     In [11]: np.log(da / land_area).xshape.plot(
-       ....:     'tests/data/shapefiles/CA_counties/CA_counties',
+       ....:     '../tests/data/shapefiles/CA_counties/CA_counties',
        ....:     encoding='latin1',
        ....:     cmap='YlGnBu');
        ....:
