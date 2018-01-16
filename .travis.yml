@@ -30,7 +30,13 @@ install:
     source activate test_env;
 
     python setup.py install;
-    python -m pip install -r requirements_dev.txt;
+
+    if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      python -m pip install -r requirements_dev_py2k.txt;
+    else
+      python -m pip install -r requirements_dev_py3k.txt;
+    fi;
+
     conda install --yes --file requirements_conda.txt;
   else
     pip install -U tox-travis;
