@@ -73,6 +73,6 @@ deploy:
       SHpleG4rV3VZcnM5bitlcG1IcFNVT29mdVpRSVNNZW9HMk5Mc01OYWY1RVNVZXlpN1VGVmNsUmN5
       Y2ZId3pJZmxTRElma1UweVM2bkwxQkoyR1dSTVBHVlNOcURENTBEYkM0U3NPemU0UEVoRGhaSHM9
   true:
-    branch: master
+    tags: true
     python: 2.7
     repo: ClimateImpactLab/xshape

@@ -38,7 +38,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Michael Delgado",
     author_email='delgado.michaelt@gmail.com',
-    url='https://github.com/ClimateImpactLab/xshape',
+    url='https://pypi.python.org/pypi',
     packages=find_packages(include=['xshape']),
     entry_points={
         'console_scripts': [
