@@ -5,6 +5,8 @@ from __future__ import absolute_import
 
 """Tests for `xshape` package."""
 
+import matplotlib
+matplotlib.use('Agg')
 
 import pytest
 from click.testing import CliRunner
