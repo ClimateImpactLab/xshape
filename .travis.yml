@@ -44,7 +44,7 @@ install:
 
 script:
 - if [[ "$TEST_ENV" == "conda" ]]; then
-    pytest &&
+    python -m tests.run_tests &&
     sphinx-apidoc -o docs xshape &&
     sphinx-build -W -b html -d docs/_build/doctrees docs/. docs/_build/html;
   else
