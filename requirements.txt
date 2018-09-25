@@ -1,2 +1,2 @@
 pyshp==1.2.12
-click==6.7
+click==7.0
