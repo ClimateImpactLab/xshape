@@ -9,5 +9,5 @@ Sphinx==1.7.5
 PyYAML==3.13
 pytest==3.5.0
 pytest-cov==2.5.1
-pytest-runner==4.2
+pytest-runner==5.0
 ipython==5.5.0
