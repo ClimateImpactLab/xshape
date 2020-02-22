@@ -2,13 +2,13 @@ xshape is no longer in development.
 
 To plot xarray data using a shapefile, I suggest simply dumping into geopandas:
 
-```python
-# for some DataArray da indexed by a single coordinate, matching the values in a column of a shapefile
+.. code-block:: python
+    # for some DataArray da indexed by a single coordinate, matching the values in a column of a shapefile
 
-import geopandas as gpd
-shp = gpd.read_file('some_shapefile').set_index(column_name_with_values_matching_da_coordinate)
+    import geopandas as gpd
+    shp = gpd.read_file('some_shapefile').set_index(column_name_with_values_matching_da_coordinate)
 
-shp.assign(myvar=da.to_series()).plot('myvar')
-```
+    shp.assign(myvar=da.to_series()).plot('myvar')
+
 
 If you'd like to take over development of xshape, feel free to reach out!
