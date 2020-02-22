@@ -3,6 +3,7 @@ xshape is no longer in development.
 To plot xarray data using a shapefile, I suggest simply dumping into geopandas:
 
 .. code-block:: python
+
     # for some DataArray da indexed by a single coordinate, matching the values in a column of a shapefile
 
     import geopandas as gpd
