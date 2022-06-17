@@ -1,4 +1,4 @@
-xshape is no longer in development.
+xshape is no longer in development. This repository is a read-only archive.
 
 To plot xarray data using a shapefile, I suggest simply dumping into geopandas:
 
